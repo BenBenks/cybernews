@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberNews - Cybersecurity Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <a href="{{ url_for('index') }}" class="site-logo">Cyber<span>News</span></a>
+            <div class="user-menu">
+                {% if session.username %}
+                    <span>User: <strong>{{ session.username }}</strong></span>
+                    {% if session.role == 'admin' %}
+                        <a href="{{ url_for('admin') }}" class="btn-sm">Admin Panel</a>
+                    {% endif %}
+                    <a href="{{ url_for('logout') }}" class="btn-sm">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn-sm">Login</a>
+                {% endif %}
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="{{ url_for('index') }}">All Stories</a></li>
+                <li><a href="{{ url_for('index', category='Data Breaches') }}">Data Breaches</a></li>
+                <li><a href="{{ url_for('index', category='Cyber Attacks') }}">Cyber Attacks</a></li>
+                <li><a href="{{ url_for('index', category='Vulnerabilities') }}">Vulnerabilities</a></li>
+                <li><a href="{{ url_for('index', category='AppSec') }}">AppSec</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 CyberNews Portal. Designed for educational purposes.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

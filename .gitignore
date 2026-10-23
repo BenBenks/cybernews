@@ -1,0 +1,30 @@
+# python and environments
+.venv/
+__pycache__/
+*.pyc
+
+# environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# database files and backups
+cybernews.db
+*.sqlite
+*.sqlite3
+*.db
+instance/
+
+# logs and crash dumps
+*.log
+logs/
+
+# ide and system files
+.vscode/
+.idea/
+.DS_Store
+
+# temporary and backup files
+*.bak
+*.swp
+*~

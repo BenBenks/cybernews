@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="search-filter-section">
+    <form action="{{ url_for('index') }}" method="GET" class="search-form">
+        <input type="text" name="search" placeholder="Search vulnerabilities, threats..." value="{{ request.args.get('search', '') }}">
+        <button type="submit">Search</button>
+    </form>
+</section>
+
+{% if featured and not request.args.get('search') and not selected_category %}
+<section class="featured-banner">
+    <div class="featured-media" style="background-image: url('{{ featured.image_url }}');">
+        <div class="featured-overlay">
+            <span class="badge">{{ featured.category }}</span>
+            <h2><a href="{{ url_for('article_detail', article_id=featured.id) }}">{{ featured.title }}</a></h2>
+            <p>{{ featured.summary }}</p>
+            <div class="meta-info">Source: {{ featured.source }} | {{ featured.created_at }}</div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="article-grid">
+    {% for article in articles %}
+    <article class="article-card">
+        <img src="{{ article.image_url }}" alt="{{ article.title }}" class="article-thumbnail">
+        <div class="article-body">
+            <span class="badge">{{ article.category }}</span>
+            <h3><a href="{{ url_for('article_detail', article_id=article.id) }}">{{ article.title }}</a></h3>
+            <p>{{ article.summary }}</p>
+            <div class="card-footer">
+                <span>{{ article.source }}</span>
+                <span>{{ article.created_at[:10] }}</span>
+            </div>
+        </div>
+    </article>
+    {% else %}
+    <p>No articles found matching your criteria.</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

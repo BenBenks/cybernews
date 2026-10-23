@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<article class="single-article">
+    <span class="badge">{{ article.category }}</span>
+    <h1>{{ article.title }}</h1>
+    <div class="article-meta">
+        Source: <strong>{{ article.source }}</strong> | Published: {{ article.created_at }}
+    </div>
+    <img src="{{ article.image_url }}" alt="{{ article.title }}" class="featured-detail-img">
+    <div class="article-text">
+        <p class="lead">{{ article.summary }}</p>
+        <p>{{ article.content }}</p>
+    </div>
+    <p><a href="{{ url_for('index') }}">&larr; Back to all stories</a></p>
+</article>
+{% endblock %}

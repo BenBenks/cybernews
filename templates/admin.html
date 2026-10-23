@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="admin-dashboard">
+    <h2>Admin Dashboard: News Management</h2>
+
+    <div class="admin-form-panel">
+        <h3>Publish New Article</h3>
+        <form method="POST" action="{{ url_for('admin') }}">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="category">Category</label>
+            <select id="category" name="category">
+                <option value="Data Breaches">Data Breaches</option>
+                <option value="Cyber Attacks">Cyber Attacks</option>
+                <option value="Vulnerabilities">Vulnerabilities</option>
+                <option value="AppSec">AppSec</option>
+            </select>
+
+            <label for="source">Source</label>
+            <input type="text" id="source" name="source" required>
+
+            <label for="image_url">Image URL</label>
+            <input type="url" id="image_url" name="image_url" required>
+
+            <label for="summary">Summary</label>
+            <textarea id="summary" name="summary" rows="2" required></textarea>
+
+            <label for="content">Full Content</label>
+            <textarea id="content" name="content" rows="6" required></textarea>
+
+            <label>
+                <input type="checkbox" name="is_featured" value="1"> Set as Featured Headline
+            </label>
+
+            <button type="submit" class="btn">Save & Publish</button>
+        </form>
+    </div>
+
+    <div class="admin-list-panel">
+        <h3>Existing Articles</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in articles %}
+                <tr>
+                    <td>{{ a.title }}</td>
+                    <td>{{ a.category }}</td>
+                    <td>{{ a.created_at[:10] }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('delete_article', article_id=a.id) }}" onsubmit="return confirm('Delete this article?');">
+                            <button type="submit" class="btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
